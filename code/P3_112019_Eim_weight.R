@@ -51,7 +51,7 @@ ggplot(P3b_record, aes(x = dpi, y = wloss)) +
   facet_wrap("primary")
 
 # add oocyst data
-oocysts <- "https://raw.githubusercontent.com/derele/Eimeria_Lab/master/data/3_recordingTables/P3_112019_Eim_oocysts.csv"
+oocysts <- "https://raw.githubusercontent.com/LubomirBednar/Manuscript_1/master/raw_data/P3_112019_Eim_oocysts.csv"
 oocysts <- read.csv(text = getURL(oocysts))
 oocysts$X <- NULL 
 
@@ -80,8 +80,22 @@ P3_record_full <- P3_record_full %>% mutate(Eim_sp = case_when(
   
   infHistory == "UNI:UNI" ~ "uni"))
 
-# calculate OPG
-P3_record_full$OPG <- P3_record_full$AVG / P3_record_full$faeces_weight
+# N = N1 + N2 + N3 + N4 /4
+# oocyst number = N x 10^4 / dilution (2mL)
+# calculate OPG(oocyst number / feces weight)
+P3_record_full$AVG <- (P3_record_full$oocyst_1 + 
+                            P3_record_full$oocyst_2 +
+                            P3_record_full$oocyst_3 +
+                            P3_record_full$oocyst_4)/4
+
+P3_record_full$ON <- (P3_record_full$AVG * 10^4) / 2
+P3_record_full$OPG <- P3_record_full$ON / P3_record_full$faeces_weight
+
+P3 <- dplyr::select(P3_record_full, labels, EH_ID, dpi, weight, weight_dpi0, faeces_weight, wloss, primary,
+                                challenge, infHistory, OPG)
+# write out this for the time being
+write.csv(P3, "./Manuscript_1/clean_data/P3_112019_Eim_weight_complete.csv")
+
 
 #let's see what we made
 ggplot(P3_record_full, aes(x = dpi, y = AVG, color = challenge)) +
@@ -103,4 +117,3 @@ ggplot(P3_record_full, aes(x = primary, y = OPG, color = Eim_sp))+
   facet_wrap("challenge")
 
 
-# graph like Anna's for comparison
