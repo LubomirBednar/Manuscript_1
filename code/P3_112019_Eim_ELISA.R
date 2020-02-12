@@ -15,6 +15,7 @@ E1_std <- read.csv(text = getURL(E1_std))
 
 E1_samples <- "https://raw.githubusercontent.com/LubomirBednar/Manuscript_1/master/clean_data/P3_112019_Eim_feces_ELISA1_samples.csv"
 E1_samples <- read.csv(text = getURL(E1_samples))
+E1_samples$label <- sub("^", "1", E1_samples$label)
 
 ###### use drc to construct standard curve and pinpointprotein content
 
