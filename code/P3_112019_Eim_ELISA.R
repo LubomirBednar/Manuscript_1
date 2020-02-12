@@ -32,5 +32,7 @@ text(y =E1_samples$OD, x = E1[,1], labels=E1_samples$label, data=E1, cex=0.9, fo
 E1 <- data.frame(E1)
 colnames(E1)[1] <- "IFNy"
 E1 <- dplyr::select(E1, IFNy)
+# the 0 replacement is just temporary
+E1[E1=="NaN"]<- 0
 
-write.csv(E1, "./Manuscript_1/clean_data/P3_112019_Eim_feces_ELISA1_clean.csv")
+write.csv(E1, "./Manuscript_1/clean_data/P3_112019_Eim_feces_ELISA1_complete.csv")
