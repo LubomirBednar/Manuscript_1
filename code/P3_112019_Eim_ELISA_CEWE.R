@@ -1,4 +1,4 @@
-# fecal ELISas P3 FEC
+# fecal ELISas P3 CEWE
 
 library(httr)
 library(RCurl)
@@ -10,10 +10,10 @@ library(reshape2)
 library(drc)
 
 ##### add clean tables
-E1_std <- "https://raw.githubusercontent.com/LubomirBednar/Manuscript_1/master/clean_data/P3_112019_Eim_feces_ELISA1_std.csv"
+E1_std <- "https://raw.githubusercontent.com/LubomirBednar/Manuscript_1/master/clean_data/P3_112019_Eim_FEC_ELISA1_std.csv"
 E1_std <- read.csv(text = getURL(E1_std))
 
-E1_samples <- "https://raw.githubusercontent.com/LubomirBednar/Manuscript_1/master/clean_data/P3_112019_Eim_feces_ELISA1_samples.csv"
+E1_samples <- "https://raw.githubusercontent.com/LubomirBednar/Manuscript_1/master/clean_data/P3_112019_Eim_CEWE_ELISA1_samples.csv"
 E1_samples <- read.csv(text = getURL(E1_samples))
 E1_samples$label <- sub("^", "P3a", E1_samples$label)
 
